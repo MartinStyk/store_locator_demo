@@ -1,0 +1,1 @@
+_Important_: In order to run the app, you need google maps API key. Specify it as a MAPS_API_KEY value in your local.properties file. 

@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Store Locator</string>
+
+    <string name="allow_device_location_to_get_your_position">Allow device location to get your position</string>
+    <string name="allow">Allow</string>
+    <string name="allow_acces_to_your_location">Allow access to your location</string>
+    <string name="can_not_load_stores_around_you">Can not load stores around you</string>
+    <string name="your_location_is_not_available">Your location is not available</string>
+    <string name="try_again">Try again</string>
+    <string name="no_stores_around_you">No stores around you</string>
+    <string name="navigate_here">Navigate here</string>
+</resources>

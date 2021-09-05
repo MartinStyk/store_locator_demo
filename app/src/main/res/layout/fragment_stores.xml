@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="android.text.TextUtils" />
+
+        <import type="com.example.storelocator.R" />
+
+        <variable
+            name="viewModel"
+            type="com.example.storelocator.screen.results.StoresFragmentViewModel" />
+
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/map"
+            android:name="com.example.storelocator.screen.map.MapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            android:visibility="@{viewModel.loadingVisible ? View.VISIBLE : View.GONE}" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:onClick="@{() -> viewModel.reloadData()}"
+            android:src="@drawable/ic_baseline_refresh_24"
+            android:visibility="@{viewModel.reloadButtonVisible ? View.VISIBLE : View.GONE}"
+            app:layout_anchor="@id/resultsRecyclerView"
+            app:layout_anchorGravity="end"
+            tools:ignore="ContentDescription" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/resultsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?android:attr/colorBackground"
+            android:clipToPadding="false"
+            app:bottom_sheet_callback="@{viewModel.resultsBottomSheetCallback}"
+            app:bottom_sheet_hideable="@{viewModel.resultsBottomSheetHideable}"
+            app:bottom_sheet_ignore_gesture_insets="@{true}"
+            app:bottom_sheet_peekHeight="@{@dimen/result_bottom_sheet_peek_height}"
+            app:bottom_sheet_state="@{viewModel.resultsBottomSheetState}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_behavior="@string/bottom_sheet_behavior"
+            app:setAdapter="@{viewModel.storesAdapter}"
+            tools:listitem="@layout/item_store" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/storeDetail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/colorBackground"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="20dp"
+            app:bottom_sheet_callback="@{viewModel.detailBottomSheetCallback}"
+            app:bottom_sheet_hideable="@{true}"
+            app:bottom_sheet_ignore_gesture_insets="@{true}"
+            app:bottom_sheet_state="@{viewModel.detailBottomSheetState}"
+            app:layout_behavior="@string/bottom_sheet_behavior">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/icon"
+                style="@style/LogoDrawableWithBackground"
+                android:background="@drawable/circle"
+                app:layout_constraintBottom_toBottomOf="@id/subtitle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:placeholder="@{R.drawable.ic_payment_card}"
+                app:srcUrlAsync="@{viewModel.selectedStore.placeLogoUrl}"
+                tools:srcCompat="@drawable/common_full_open_on_phone" />
+
+            <TextView
+                android:id="@+id/title"
+                style="@style/DetailTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toTopOf="@+id/subtitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/icon"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"
+                app:text="@{viewModel.selectedStoreTitle}"
+                tools:text="Omv Store" />
+
+            <TextView
+                android:id="@+id/subtitle"
+                style="@style/DetailSubtitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="1dp"
+                android:visibility="@{TextUtils.isEmpty(viewModel.selectedStoreSubtitle) ? View.GONE : View.VISIBLE}"
+                app:layout_constraintBottom_toTopOf="@id/navigate"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/title"
+                app:layout_constraintTop_toBottomOf="@+id/title"
+                app:text="@{viewModel.selectedStoreSubtitle}"
+                tools:text="Address" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/navigate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:onClick="@{() -> viewModel.navigateToCurrentlySelectedStore()}"
+                android:text="@string/navigate_here"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/subtitle" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>

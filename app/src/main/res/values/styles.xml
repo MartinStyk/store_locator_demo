@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="BaseListItem">
+        <item name="android:background">?android:colorBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingEnd">16dp</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="LogoDrawableWithBackground">
+        <item name="android:layout_width">@dimen/list_item_image_size</item>
+        <item name="android:layout_height">@dimen/list_item_image_size</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:padding">8dp</item>
+        <item name="backgroundTint">?attr/colorSurface</item>
+    </style>
+
+    <style name="BaseSingleLine">
+        <item name="android:maxLines">1</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="BaseListItemTitle" parent="BaseSingleLine">
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="android:textSize">@dimen/fontSizeSmall</item>
+    </style>
+
+    <style name="BaseListItemSubtitle" parent="BaseSingleLine">
+        <item name="android:textColor">?android:textColorSecondary</item>
+        <item name="android:textSize">@dimen/fontSizeExtraSmall</item>
+    </style>
+
+    <style name="DetailTitle" parent="BaseSingleLine">
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="android:textSize">@dimen/fontSizeMedium</item>
+    </style>
+
+    <style name="DetailSubtitle">
+        <item name="android:textColor">?android:textColorSecondary</item>
+        <item name="android:textSize">@dimen/fontSizeSmall</item>
+    </style>
+
+</resources>

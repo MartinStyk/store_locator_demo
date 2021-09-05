@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="android.text.TextUtils" />
+
+        <import type="com.example.storelocator.R" />
+
+        <variable
+            name="viewModel"
+            type="com.example.storelocator.screen.results.StoresAdapter.StoreViewHolder.StoreViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/BaseListItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> viewModel.showDetail() }">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/icon"
+            style="@style/LogoDrawableWithBackground"
+            android:background="@drawable/circle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:placeholder="@{R.drawable.ic_payment_card}"
+            app:srcUrlAsync="@{viewModel.store.placeLogoUrl}"
+            tools:srcCompat="@drawable/common_full_open_on_phone" />
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/BaseListItemTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:textAlignment="viewStart"
+            app:layout_constraintBottom_toTopOf="@+id/subtitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/icon"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:text="@{viewModel.store.name}"
+            tools:text="Omv Store" />
+
+        <TextView
+            android:id="@+id/subtitle"
+            style="@style/BaseListItemSubtitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:visibility="@{TextUtils.isEmpty(viewModel.store.address) ? View.GONE : View.VISIBLE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/title"
+            app:layout_constraintTop_toBottomOf="@+id/title"
+            app:layout_goneMarginStart="20dp"
+            app:text="@{viewModel.store.address}"
+            tools:text="Address" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
