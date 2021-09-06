@@ -11,6 +11,7 @@ import com.example.storelocator.manager.permission.PermissionManager
 import com.example.storelocator.manager.resources.ResourcesManager
 import com.example.storelocator.model.location.GeoLocation
 import com.example.storelocator.model.map.MapAreaZoomData
+import com.example.storelocator.model.map.MapLocationZoomData
 import com.example.storelocator.model.map.MapPinData
 import com.example.storelocator.model.store.Store
 import com.example.storelocator.screen.map.MapDataModel
@@ -26,6 +27,9 @@ import dagger.assisted.AssistedInject
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
+
+
+private const val MY_POSITION_ZOOM_LEVEL = 15f
 
 class StoresFragmentViewModel @AssistedInject constructor(
     @Assisted private val mapDataModel: MapDataModel,
@@ -204,6 +208,7 @@ class StoresFragmentViewModel @AssistedInject constructor(
                     length = Snackbar.LENGTH_INDEFINITE
                 )
             )
+            mapDataModel.zoomOnLocation(MapLocationZoomData(position, MY_POSITION_ZOOM_LEVEL))
         } else {
             showResultList()
         }
@@ -214,7 +219,7 @@ class StoresFragmentViewModel @AssistedInject constructor(
         hideResultList()
         detailBottomSheetStateLiveData.value = BottomSheetBehavior.STATE_EXPANDED
         mapDataModel.showPins(listOf(MapPinData(GeoLocation(store.latitude, store.longitude), store.name)))
-        mapDataModel.zoomOnLocation(GeoLocation(store.latitude, store.longitude))
+        mapDataModel.zoomOnLocation(MapLocationZoomData(GeoLocation(store.latitude, store.longitude)))
     }
 
     private fun hideResultList() {

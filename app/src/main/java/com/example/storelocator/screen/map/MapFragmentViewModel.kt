@@ -31,8 +31,12 @@ class MapFragmentViewModel @AssistedInject constructor(
             }
             CameraUpdateFactory.newLatLngBounds(bounds, it.padding)
         },
-        mapDataModel.zoomOnLocation.map {
-            CameraUpdateFactory.newLatLng(LatLng(it.latitude, it.longitude))
+        mapDataModel.zoomOnLocation.map { (position, zoom) ->
+            if(zoom == null) {
+                CameraUpdateFactory.newLatLng(LatLng(position.latitude, position.longitude))
+            } else {
+                CameraUpdateFactory.newLatLngZoom(LatLng(position.latitude, position.longitude), zoom)
+            }
         })
         .flattenMerge()
         .asLiveData()
