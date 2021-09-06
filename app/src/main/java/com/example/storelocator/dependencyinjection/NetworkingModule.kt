@@ -1,6 +1,5 @@
 package com.example.storelocator.dependencyinjection
 
-import android.util.Log
 import com.example.storelocator.BuildConfig
 import com.example.storelocator.api.PaySafeCardApi
 import com.example.storelocator.dependencyinjection.util.PaySafeApi
@@ -40,11 +39,9 @@ class NetworkingModule {
         val builder = OkHttpClient.Builder()
 
         if (BuildConfig.DEBUG) {
-            builder.addInterceptor(HttpLoggingInterceptor { message ->
-                Timber.tag("OkHttp").d(message)
-            }.apply {
-                level = HttpLoggingInterceptor.Level.BODY
-            })
+            builder.addInterceptor(
+                HttpLoggingInterceptor { message -> Timber.tag("OkHttp").d(message) }
+                    .apply { level = HttpLoggingInterceptor.Level.BODY })
         }
         builder.addInterceptor(acceptLanguageInterceptor)
         builder.addInterceptor(userAgentInterceptor)
@@ -61,7 +58,10 @@ class NetworkingModule {
         resourcesManager: ResourcesManager,
         gson: Gson,
     ): OkHttpClient {
-        val pins = gson.fromJson<List<String>>(resourcesManager.readTextAssetsResource(PaySafeCardApi.CERTIFICATE_PINS) ?: "", object : TypeToken<List<String>>() {}.type)
+        val pins = gson.fromJson<List<String>>(
+            resourcesManager.readTextAssetsResource(PaySafeCardApi.CERTIFICATE_PINS) ?: "", object :
+                TypeToken<List<String>>() {}.type
+        )
         return okHttpClient.newBuilder()
             .certificatePinner(
                 CertificatePinner.Builder()

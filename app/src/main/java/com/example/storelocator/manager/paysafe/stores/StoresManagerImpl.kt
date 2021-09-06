@@ -14,14 +14,12 @@ class StoresManagerImpl @Inject constructor(
         radius: Int,
         resultPerPage: Int,
         resultPage: Int
-    ): List<Store> {
+    ): List<Store> = paySafeCardApi.stores(
+        geoLocation.latitude,
+        geoLocation.longitude,
+        radius,
+        resultPerPage,
+        resultPage
+    ).stores
 
-        return paySafeCardApi.stores(
-            geoLocation.latitude,
-            geoLocation.longitude,
-            radius,
-            resultPerPage,
-            resultPage
-        ).stores
-    }
 }

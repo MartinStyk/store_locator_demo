@@ -1,7 +1,5 @@
 package com.example.storelocator.manager.location
 
-import com.example.storelocator.util.ValuelessLiveData
-
 const val GOOGLE_API_CLIENT_REQUEST_CODE = 4321
 
 interface LocationRequestManager {

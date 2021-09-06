@@ -11,6 +11,7 @@ import com.google.android.gms.location.LocationSettingsRequest
 import com.google.android.gms.location.LocationSettingsStatusCodes
 import kotlinx.coroutines.CancellableContinuation
 import kotlinx.coroutines.suspendCancellableCoroutine
+import timber.log.Timber
 import java.lang.ref.WeakReference
 import javax.inject.Inject
 import kotlin.coroutines.resume
@@ -63,10 +64,10 @@ class LocationRequestManagerImpl @Inject constructor(private val locationManager
                             LocationSettingsStatusCodes.RESOLUTION_REQUIRED -> try {
                                 val resolvable = exception as ResolvableApiException
                                 resolvable.startResolutionForResult(activity, GOOGLE_API_CLIENT_REQUEST_CODE)
-                            } catch (ignored: IntentSender.SendIntentException) {
-                                /* no-op */
-                            } catch (ignored: ClassCastException) {
-                                /* no-op */
+                            } catch (ex: IntentSender.SendIntentException) {
+                                Timber.e(ex)
+                            } catch (ex: ClassCastException) {
+                                Timber.e(ex)
                             }
                         }
                     }

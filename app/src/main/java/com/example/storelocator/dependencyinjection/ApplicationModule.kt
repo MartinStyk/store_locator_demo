@@ -67,6 +67,7 @@ class ApplicationModule {
 
     @Provides
     @Singleton
-    fun provideResourcesManager(resourcesManagerImpl: ResourcesManagerImpl): ResourcesManager = resourcesManagerImpl
+    fun provideResourcesManager(resourcesManagerImpl: ResourcesManagerImpl): ResourcesManager =
+        resourcesManagerImpl
 
 }

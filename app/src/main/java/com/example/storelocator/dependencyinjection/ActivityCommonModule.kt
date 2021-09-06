@@ -52,5 +52,4 @@ class ActivityCommonModule {
         return locationRequestManager
     }
 
-
 }
